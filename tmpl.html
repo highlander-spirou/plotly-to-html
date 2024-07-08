@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BISCUIT WGBS Variant Calling Benchmark Report</title>
+    <style>
+        *,:before,:after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}:before,:after{--tw-content: ""}html,:host{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}ol,ul,menu{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}button,[role=button]{cursor:pointer}:disabled{cursor:default}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*,:before,:after{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }.absolute{position:absolute}.table{display:table}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-crosshair{cursor:crosshair}.cursor-e-resize{cursor:e-resize}.cursor-ew-resize{cursor:ew-resize}.cursor-n-resize{cursor:n-resize}.cursor-ne-resize{cursor:ne-resize}.cursor-ns-resize{cursor:ns-resize}.cursor-nw-resize{cursor:nw-resize}.cursor-pointer{cursor:pointer}.cursor-s-resize{cursor:s-resize}.cursor-se-resize{cursor:se-resize}.cursor-sw-resize{cursor:sw-resize}.cursor-w-resize{cursor:w-resize}html{scroll-behavior:smooth}body{font-family:Arial,sans-serif}h1,h2,h3,strong,em{color:#1a5276}.layout{display:grid;height:100vh;grid-template-columns:200px 1fr}.nav-wrapper{--tw-bg-opacity: 1;background-color:rgb(221 221 221 / var(--tw-bg-opacity))}aside.nav{position:sticky;top:0}ul.nav{margin-top:2.5rem;margin-left:1rem;margin-right:1rem;display:flex;flex-direction:column;gap:.75rem}li.main-section{margin-top:.75rem;border-bottom-width:1px;--tw-border-opacity: 1;border-color:rgb(31 41 55 / var(--tw-border-opacity));padding-bottom:.75rem;font-size:1rem;line-height:1.5rem;font-weight:700;--tw-text-opacity: 1;color:rgb(26 82 118 / var(--tw-text-opacity))}li.sub-section{margin-top:.5rem;border-bottom-width:1px;--tw-border-opacity: 1;border-color:rgb(31 41 55 / var(--tw-border-opacity));padding-bottom:.75rem;font-size:1rem;--tw-text-opacity: 1;color:rgb(107 114 128 / var(--tw-text-opacity))}.big-section{margin:.75rem 1.25rem;border-radius:1rem;--tw-bg-opacity: 1;background-color:rgb(255 255 255 / var(--tw-bg-opacity));padding-left:1.25rem;padding-right:1.25rem;padding-top:2.5rem}main.content{display:flex;flex-direction:column;--tw-bg-opacity: 1;background-color:rgb(240 240 240 / var(--tw-bg-opacity))}header{--tw-bg-opacity: 1;background-color:rgb(255 255 255 / var(--tw-bg-opacity));padding-top:1.5rem;text-align:center}.title{margin-top:.5rem;font-size:2rem;font-weight:700}.subtitle{margin:1.25rem 2.5rem 2rem}.section-title{margin-bottom:2rem;font-size:1.35rem;font-weight:700}.section-content{margin-bottom:2.5rem}.subsection{margin-left:.75rem;margin-right:.75rem}.subsection-title{margin-bottom:2rem;font-size:1.2rem;font-weight:700}.subsection-content{margin-bottom:2rem}.svg-wrapper{margin-left:auto;margin-right:auto;margin-bottom:4rem;height:400px;max-width:1050px;overflow:scroll;border-radius:.75rem;border-width:1px;padding:.25rem}.svg-wrapper-1{--tw-scale-x: 1;--tw-scale-y: 1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}ul.section-content>li{margin-left:2.5rem;list-style-type:disc}table{width:100%;border-collapse:collapse}th,td{padding:8px;text-align:left}th{background-color:#f2f2f2;color:#1a5276}pre code{display:block;white-space:pre;background-color:#f9f9f9;padding:10px;border-radius:5px}
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="layout">
+            <div class="nav-wrapper">
+                <aside class="nav">
+                    <ul class="nav">
+                        <li class="main-section"><a href="#section-var-stats">Variants Statistics</a></li>
+                        <li class="sub-section">
+                            <a href="#subsection-bismark-stats">Bismark bam</a>
+                        </li>
+                        <li class="sub-section">
+                            <a href="#subsection-biscuit-stats">Biscuit bam</a>
+                        </li>
+                        <li class="main-section"><a href="#section-accuracy">Accuracy Analysis</a></li>
+                        <li class="sub-section">
+                            <a href="#subsection-bismark-accuracy">Bismark bam</a>
+                        </li>
+                        <li class="sub-section">
+                            <a href="#subsection-biscuit-accuracy">Biscuit bam</a>
+                        </li>
+                        <li class="main-section"><a href="#section-method-summary">Method Summary</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <main class="content">
+                <header>
+                    <h1 class="title">
+                        BISCUIT WGBS Variant Calling Benchmark Report
+                    </h1>
+                    <p class="subtitle">
+                        This report investigates the accuracy of <strong><em>BISCUIT</em></strong> variant calling from
+                        <strong><em>BISCUIT</em></strong> and <strong><em>BISMARK</em></strong> bam files. Result data
+                        could be found here: <strong><em>s3://pacinfo-fs/tmp/hhoang/vcf-benchmark/</em></strong>
+                    </p>
+                </header>
+                <section id="section-var-stats" class="big-section">
+                    <h1 class="section-title">Variants Statistics</h1>
+                    <p class="section-content">
+                        This section displays statitics including: Total <strong>SNPs, Indels, and Ts/Tv</strong> across
+                        GQ Cutoffs of VCFs from BISCUIT and BISMARK bam files. VCFs were examined and filtered using
+                        <strong><em>BCFtools</em></strong>.
+                    </p>
+                    <section id="subsection-bismark-stats" class="subsection">
+                        <h2 class="subsection-title">Variants called from Bismark bam</h2>
+                        <p class="subsection-content">
+                            This section contains statistics for variants called from the BISMARK bam file for
+                            allsamples in 4302. After filtering out non-reference variants, the total number of variants
+                            across samples ranges from 5 to 6 millions, comprising solely SNPs with no Indels. Following
+                            additional filtering based on GQ cutoffs, the total number of variants decreases. At a GQ
+                            cutoff of 15, approximately 3 million variants remain across all samples.
+                        </p>
+                        <!-- Graph starts here -->
+                        <div class="svg-wrapper">
+                            <div class="svg-wrapper-1">
+                                {{graph_1_svg}}
+                            </div>
+                        </div>
+                        <!-- Graph ends here -->
+                    </section>
+                    <section id="subsection-biscuit-stats" class="subsection">
+                        <h2 class="subsection-title">Variants called from Biscuit bam</h2>
+                        <p class="subsection-content">
+                            This section contains statistics for variants called from the BISCUIT bam file for sample
+                            4302_1, as it is the only sample processed so far. After filtering out non-reference
+                            variants, approximately 10 million variants were called, all of which are SNPs with no
+                            Indels, which is a higher count than from the Bismark BAM file. Upon further filtering based
+                            on GQ cutoffs, the total number of variants decreases. At a GQ cutoff of 15, more than 5
+                            million variants are retained. Analysis is limited up to GQ 45 to investigate accuracy, as
+                            detailed in <a href="#subsection-biscuit-accuracy">Accuracy Analysis section</a>. </p>
+                        <!-- Graph starts here -->
+                        <div class="svg-wrapper">
+                            <div class="svg-wrapper-1">
+                                {{graph_2_svg}}
+                            </div>
+                        </div>
+                        <!-- Graph ends here -->
+                    </section>
+                </section>
+                <section id="section-accuracy" class="big-section">
+                    <h1 class="section-title">Accuracy Analysis</h1>
+                    <p class="section-content">
+                        This sections present accuracy metrics from Hap.py on VCFs from BISCUIT and BISMARK bam files.
+                        As no indels found in VCFs file, Indel mectrics are 0; therefore, only metrics of SNP are
+                        included. The three metrics including:
+
+                    <ul class="section-content">
+
+                        <li>Recall measures the proportion of true variants detected by the algorithm compared to all
+                            true variants present. It is calculated as TRUTH.TP / (TRUTH.TP + TRUTH.FN). High recall
+                            indicates effective detection of true variants, minimizing missed detections (false
+                            negatives).</li>
+                        <li>Precision measures the proportion of correctly identified variants out of all variants
+                            identified by the algorithm. It is calculated as QUERY.TP / (QUERY.TP + QUERY.FP). High
+                            precision indicates that identified variants are likely to be true positives, minimizing
+                            incorrect identifications (false positives)</li>
+                        <li>F1 score: Harmonic mean of precision and recall = 2.Recall.Precision / (Recall + Precision)
+                        </li>
+                    </ul>
+                    </p>
+                    <section id="subsection-bismark-accuracy" class="subsection">
+                        <h2 class="subsection-title">VCFs from Bismark bam</h2>
+                        <p class="subsection-content">
+                            This section shows accuracy metrics across GQ cutoffs for VCFs derived from the Bismark BAM
+                            files. Precision increases while recall decreases, resulting in an increasing trend for F1
+                            score across the cutoff range. At GQ cutoff 15, there appears to be a balance between
+                            precision and recall, with all three metrics converging to similar values (~7.5-8.4) across
+                            the samples.
+                        </p>
+                        <!-- Graph starts here -->
+                        <div class="svg-wrapper">
+                            <div class="svg-wrapper-1">
+                                {{graph_3_svg}}
+                            </div>
+                        </div>
+                        <!-- Graph ends here -->
+                    </section>
+                    <section id="subsection-biscuit-accuracy" class="subsection">
+                        <h2 class="subsection-title">VCFs from Biscuit bam</h2>
+                        <p class="subsection-content">
+                            This section illustrates accuracy metrics across GQ cutoffs for VCFs derived from the
+                            BISCUIT BAM files. Similar to the VCFs from Bismark, precision increases while recall
+                            decreases, leading to an upward trend in F1 score across the cutoff range. However, at GQ
+                            cutoff 15, precision is only 0.56 while recall is 0.93, suggesting many variants found in
+                            the query VCF are not in the truth set. Consequently, the cutoffs were increased to 25, 35,
+                            and 45. At cutoffs 45 and 35, the metrics stabilize, with precision at 7.8 and recall at
+                            6.8. Compared to sample VCF of in4302_1 from the BISMARK BAM (precision ~8).
+                        </p>
+                        <!-- Graph starts here -->
+                        <div class="svg-wrapper">
+                            <div class="svg-wrapper-1">
+                                {{graph_4_svg}}
+                            </div>
+                        </div>
+                        <!-- Graph ends here -->
+                    </section>
+                </section>
+                <section id="section-method-summary" class="big-section">
+                    <h1 class="section-title">Method Summary</h1>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Purpose</th>
+                                <th>Tools</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                            </tr>
+                            <tr>
+                                <td>Filter non-ref variants</td>
+                                <td>BCFTools</td>
+                                <td>1.17</td>
+                                <td>
+                                    <pre><code>bcftools view --threads 4 -c 1 ${input-vcf.gz} &gt; ${output-vcf.gz}</code></pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Get Stats of filtered VCFs</td>
+                                <td>BCFTools</td>
+                                <td>1.17</td>
+                                <td>
+                                    <pre><code>bcftools view --threads 4 -i "FMT/GQ&gt;=${gq_threshold}" ${input-vcf.gz} &gt; ${output-vcf.gz}</code></pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Filter VCF by GQ Cutoff</td>
+                                <td>BCFTools</td>
+                                <td>1.17</td>
+                                <td>
+                                    <pre><code>bcftools stats ${input-vcf.gz} &gt; ${sample}_bcftools_stats.txt</code></pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Run hap.py</td>
+                                <td>Hap.py</td>
+                                <td>0.3.15</td>
+                                <td>
+                                    <pre><code>hap.py ${truth-vcf.gz} ${query-vcf.gz} -r ${ref-fasta} --thread 16 -o ${sample}_happy_convert</code></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
